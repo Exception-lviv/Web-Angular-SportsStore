@@ -8,12 +8,42 @@ export class Cart {
   public cartPrice = 0;
 
   addLine(product: Product, quantity: number = 1) {
-    const line = this.lines.find(currLine => currLine.product.id === product.id);
+    const line = this.lines.find(lineItem => lineItem.product.id === product.id);
     if (line !== undefined) {
       line.quantity += quantity;
     } else {
       this.lines.push(new CartLine(product, quantity));
     }
+    this.recalculate();
+  }
+
+  updateQuantity(product: Product, quantity: number) {
+    const line = this.lines.find(lineItem => lineItem.product.id === product.id);
+    if (line !== undefined) {
+      line.quantity = Number(quantity);
+    }
+    this.recalculate();
+  }
+
+  removeLine(id: number) {
+    const index = this.lines.findIndex(lineItem => lineItem.product.id === id);
+    this.lines.splice(index, 1);
+    this.recalculate();
+  }
+
+  clear() {
+    this.lines = [];
+    this.itemCount = 0;
+    this.cartPrice = 0;
+  }
+
+  private recalculate() {
+    this.itemCount = 0;
+    this.cartPrice = 0;
+    this.lines.forEach(lineItem => {
+      this.itemCount += lineItem.quantity;
+      this.cartPrice += (lineItem.quantity * lineItem.product.price);
+    });
   }
 }
 

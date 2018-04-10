@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { ModelModule } from '../model/model.module';
 import { StoreComponent } from './store.component';
 import { CounterDirective } from './counter.directive';
+import { CartSummaryComponent } from './cart-summary/cart-summary.component';
 
 @NgModule({
   declarations: [
     StoreComponent,
-    CounterDirective
+    CounterDirective,
+    CartSummaryComponent
   ],
   imports: [
     BrowserModule,

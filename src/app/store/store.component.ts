@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../model/product.model';
 import { ProductRepository } from '../model/product.repository';
+import { Cart } from '../model/cart.model';
 
 @Component({
   selector: 'app-store',
@@ -15,7 +16,7 @@ export class StoreComponent {
   public productsPerPage = 4;
   public selectedPage = this.defaultPage;
 
-  constructor(private repository: ProductRepository) { }
+  constructor(private repository: ProductRepository, private cart: Cart) { }
 
   get products(): Product[] {
     const pageIndex = (this.selectedPage - 1) * this.productsPerPage;
@@ -47,5 +48,9 @@ export class StoreComponent {
 
   countPerCategory(cat: string): number {
     return this.repository.getProducts(cat).length;
+  }
+
+  addProductToCart(product: Product) {
+    this.cart.addLine(product);
   }
 }
