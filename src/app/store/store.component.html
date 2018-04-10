@@ -2,16 +2,17 @@
   <a class="navbar-brand text-light">SPORTS STORE</a>
 </div>
 <div class="row m-0">
-  <!-- <div class="col-sm-3 align-self-start bg-info p-1">
-    {{categories.length}} Categories
-  </div> -->
   <div class="col-sm-3 align-self-start p-1">
     <button class="btn btn-block btn-outline-primary" (click)="changeCategory()">
       Home
+      <span class="badge badge-pill badge-light text-primary">{{countPerCategory()}}</span>
+      <span class="sr-only">Products count by category</span>
     </button>
     <button *ngFor="let cat of categories" class="btn btn-block btn-outline-primary"
             [class.active]="cat == selectedCategory" (click)="changeCategory(cat)">
             {{cat}}
+      <span class="badge badge-pill badge-light text-primary">{{countPerCategory(cat)}}</span>
+      <span class="sr-only">Products count by category</span>
     </button>
   </div>
   <div class="col-sm-9 p-1">
