@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ModelModule } from '../model/model.module';
 import { StoreComponent } from './store.component';
 import { CounterDirective } from './counter.directive';
@@ -19,7 +20,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ModelModule
+    ModelModule,
+    RouterModule
   ],
   exports: [StoreComponent]
 })
