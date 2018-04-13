@@ -1,1 +1,51 @@
-<div><h3 class="bg-info p-a-1">Cart Detail Component</h3></div>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand text-light">SPORTS STORE</a>
+</nav>
+<div class="m-1">
+    <h2 class="text-center">Your Cart</h2>
+    <table class="table table-bordered table-striped p-1">
+        <thead>
+            <tr>
+                <th>Qantity</th>
+                <th>Product</th>
+                <th class="text-xs-right">Price</th>
+                <th class="text-xs-right">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="cart.lines.length == 0">
+                <td colspan="4" class="text-center">Your cart is empty</td>
+            </tr>
+            <tr *ngFor="let line of cart.lines">
+                <td>
+                    <input type="number" class="form-control" style="width:6em"
+                           [value]="line.quantity" 
+                           (change)="cart.updateQuantity(line.product, $event.target.value)"/>
+                </td>
+                <td>{{line.product.name}}</td>
+                <td class="text-right">
+                    {{line.product.price | currency: "USD":"symbol-narrow":"2.2-2"}}
+                </td>
+                <td class="text-right">
+                    {{line.lineTotal | currency: "USD":"symbol-narrow":"2.2-2"}}
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-danger"
+                            (click)="cart.removeLine(line.product.id)">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td class="text-right">{{cart.cartPrice | currency: "USD":"symbol-narrow":"2.2-2"}}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="text-center">
+    <button class="btn btn-primary" routerLink="/store">Continue Shopping</button>
+    <button class="btn btn-secondary" routerLink="/checkout" [disabled]="cart.lines.length == 0">Checkout</button>
+</div>
